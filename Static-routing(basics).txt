@@ -1,0 +1,30 @@
+Router0#
+en
+conf t
+int f0/0
+ip address 192.168.1.1 255.255.255.0
+no shut
+ex
+int s0/3/0
+ip address 192.168.2.1 255.255.255.0
+clock rate 1200
+no shut
+ex
+**Static routing for Router0**
+ip route 192.168.3.0 255.255.255.0 192.168.2.2
+
+
+Router1#
+en
+conf t
+int f0/0
+ip address 192.168.3.1 255.255.255.0
+no shut
+ex
+int s0/2/0
+ip address 192.168.2.2 255.255.255.0
+clock rate 1200
+no shut
+ex
+**Static routing for Router1**
+ip route 192.168.1.0 255.255.255.0 192.168.2.1

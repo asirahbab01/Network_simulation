@@ -1,0 +1,125 @@
+Router0#
+en
+conf t
+int s0/0/0
+ip addr 192.168.10.233 255.255.255.252
+clock rate 1200
+no shut
+ex
+int s0/0/1
+ip addr 192.168.10.241 255.255.255.252
+clock rate 1200
+no shut
+ex
+int s0/3/0
+ip addr 192.168.10.237 255.255.255.252
+clock rate 1200
+no shut
+ex
+int s0/3/1
+ip addr 192.168.10.245 255.255.255.252
+clock rate 1200
+no shut
+ex
+route rip 
+ver 2
+network 192.168.10.232
+network 192.168.10.236 
+network 192.168.10.240 
+network 192.168.10.244 
+ex
+do show ip route
+
+
+Router1#
+en
+conf t
+int s0/0/0
+ip addr 192.168.10.234 255.255.255.252
+no shut
+ex
+int f0/0
+ip addr 192.168.10.1 255.255.255.128
+no shut
+ex
+ip dhcp pool cse
+network 192.168.10.0 255.255.255.128
+default-route 192.168.10.1
+ex
+route rip 
+ver 2
+network 192.168.10.232
+network 192.168.10.0 
+ex
+do show ip route
+
+
+Router2#
+en
+conf t
+int s0/3/0
+ip addr 192.168.10.238 255.255.255.252
+no shut
+ex
+int f0/0
+ip addr 192.168.10.225 255.255.255.248
+no shut
+ex
+ip dhcp pool admwing
+network 192.168.10.224 255.255.255.248
+default-route 192.168.10.225
+ex
+route rip 
+ver 2
+network 192.168.10.236
+network 192.168.10.224 
+ex
+do show ip route
+
+
+Router3#
+en
+conf t
+int s0/0/0
+ip addr 192.168.10.242 255.255.255.252
+no shut
+ex
+int f0/0
+ip addr 192.168.10.129 255.255.255.192
+no shut
+ex
+ip dhcp pool ce
+network 192.168.10.128 255.255.255.192
+default-route 192.168.10.129
+ex
+route rip 
+ver 2
+network 192.168.10.240
+network 192.168.10.128
+ex
+do show ip route
+
+
+Router4#
+en
+conf t
+int s0/3/0
+ip addr 192.168.10.246 255.255.255.252
+no shut
+ex
+int f0/0
+ip addr 192.168.10.193 255.255.255.224
+no shut
+ex
+ip dhcp pool bme
+network 192.168.10.192 255.255.255.224
+default-route 192.168.10.193
+ex
+route rip 
+ver 2
+network 192.168.10.244
+network 192.168.10.192
+ex
+do show ip route
+
+Note: Version 2 of RIP was used because VLSM (Variable Length Subnet Masking) was implemented in the network diagram.

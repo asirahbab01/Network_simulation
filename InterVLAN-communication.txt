@@ -1,0 +1,47 @@
+Switch0#
+en
+conf t
+vlan 2
+name cricket
+ex
+vlan 3
+name football
+ex
+vlan 4
+name basketball
+ex
+do show vlan brief
+int range f0/1-2
+switchport mode access
+switchport access vlan 2
+ex
+int range f0/3-4
+switchport mode access
+switchport access vlan 3
+ex
+int f0/5
+switchport mode access
+switchport access vlan 4
+ex
+do show vlan brief
+
+**It is required for interVLAN communication.**
+int f0/6
+switchport mode trunk
+ex
+
+Router0#
+en
+conf t
+int f0/0
+no shut
+int f0/0.10
+encapsulation dot1q 2
+ip addr 192.168.10.1 255.255.255.0
+no shut
+ex
+int f0/0.20
+encapsulation dot1q 4
+ip addr 192.168.30.1 255.255.255.0
+no shut
+ex
